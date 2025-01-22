@@ -9,8 +9,6 @@
 
 #include "../include/localization/localization.h"
 
-// Describes the current language set in the program.
-// Default is English.
 const Localization *currentLocalization = &localizations[LangTypeEn];
 
 int askLanguageChoice(void) {

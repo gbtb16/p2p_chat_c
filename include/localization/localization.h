@@ -11,14 +11,14 @@
 #include "localization_en.h"
 #include "localization_pt.h"
 
-// Enum for languages
+// Enum for languages.
 typedef enum {
     LangTypeEn,
     LangTypePt,
     TotalNumberOfLanguages
 } LanguageType;
 
-// Localization structure
+// Localization structure.
 typedef struct {
     const char *languageSetMessage;
     const char *welcomeMessage;
@@ -28,7 +28,7 @@ typedef struct {
     const char *goodbyeMessage;
 } Localization;
 
-// Array of localizations
+// Array of localizations.
 static const Localization localizations[TotalNumberOfLanguages] = {
     [LangTypeEn] = {
         .languageSetMessage = LANG_EN_LANGUAGE_SET_MSG,
@@ -48,14 +48,16 @@ static const Localization localizations[TotalNumberOfLanguages] = {
     }
 };
 
-// Current localization pointer
+// Current localization pointer.
+// Your value represents the current language.
+// Default will be English.
 extern const Localization *currentLocalization;
 
-// Function to ask user the language choice
-// Returns the choice number
+// Function to ask user the language choice.
+// Returns the choice number in range of [0-TotalNumberOfLanguages].
 int askLanguageChoice();
 
-// Function to select language
+// Function to select the language of the application.
 void setLanguage(LanguageType type);
 
 #endif // LOCALIZATION_H_
