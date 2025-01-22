@@ -1,5 +1,5 @@
 #
-#  build_and_run.sh
+#  Makefile
 #  p2p_chat_c
 #
 #  Created by Gabriel Barbosa on 22/01/25.
