@@ -7,11 +7,11 @@
 
 #include <stdio.h>
 
-#include "../include/localization/localization.h"
+#include "../include/l10n/localization.h"
 
-const Localization *currentLocalization = &localizations[LangTypeEn];
+const Localization *currentLocalization = &localizations[EnglishLanguageType];
 
-int askLanguageChoice(void) {
+int showLanguageSetup(void) {
     int choice = 0;
 
     printf("Select language:\n");
@@ -34,7 +34,7 @@ int askLanguageChoice(void) {
 }
 
 void setLanguage(LanguageType type) {
-    if (type >= TotalNumberOfLanguages) {
+    if (type >= LanguageTypesLength) {
         printf("Invalid language choice. Defaulting to English.\n\n");
         return;
     }

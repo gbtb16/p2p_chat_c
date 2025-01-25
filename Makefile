@@ -10,7 +10,7 @@ CFLAGS = -Wall -Iinclude
 SRCDIR = src
 OBJDIR = build
 
-OBJS = $(OBJDIR)/main.o $(OBJDIR)/localization.o
+OBJS = $(OBJDIR)/main.o $(OBJDIR)/localization.o $(OBJDIR)/operation_mode.o $(OBJDIR)/menu.o
 TARGET = $(OBJDIR)/p2p_chat_c
 
 all: $(TARGET)

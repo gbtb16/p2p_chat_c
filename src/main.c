@@ -5,16 +5,17 @@
 //  Created by Gabriel Barbosa on 22/01/25.
 //
 
-#include <stdio.h>
+#include <stdlib.h>
 
-#include "../include/localization/localization.h"
+#include "../include/menu/menu.h"
 
 int main(int argc, char *argv[]) {
-    int choice = askLanguageChoice();
-    setLanguage((LanguageType)choice);
+    #ifdef _WIN32
+            system("cls");
+        #else
+            system("clear");
+        #endif
 
-    printf("%s\n", currentLocalization->welcomeMessage);
-    printf("%s\n", currentLocalization->selectOperationModeMessage);
-
+    showMenu();
     return 0;
 }
