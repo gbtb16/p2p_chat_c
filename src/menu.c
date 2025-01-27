@@ -14,7 +14,7 @@
 
 void _showMenuOptions(void) {
     for (int i = 0; i < MenuOptionTypesLength; i++) {
-        const char* sourceString = NULL;
+        const char *sourceString = NULL;
 
         switch (i) {
         case LanguageMenuOptionType:
@@ -50,25 +50,56 @@ void _showMenuOptions(void) {
 void showMenu(void) {
   printf("%s\n", currentLocalization->welcomeMessage);
 
+  char separator[] = "--------------------------------------";
+  printf("%s\n", separator);
 
   while (1) {
     _showMenuOptions();
+    printf("%s\n", separator);
 
-    char string[100];
-    char* stringPtr = string;
-    long choice;
-
-    while (fgets(stringPtr, sizeof(&stringPtr), stdin)) {
-        choice = strtol(string, &stringPtr, 10);
-
-        if (stringPtr == string || *stringPtr != '\n') {
-            printf("Please enter an integer!\n");
-        } else break;
+    int choiceStringSize = 10;
+    char *choiceString = malloc(choiceStringSize * sizeof(char));
+    if (choiceString == NULL) {
+        printf("ERROR: Memory allocation failed!\n");
+        continue;
     }
+
+    // Read user input
+    if (fgets(choiceString, choiceStringSize, stdin) == NULL) {
+        free(choiceString);
+        continue;
+    }
+
+    // Check if the input is too long
+    if (strchr(choiceString, '\n') == NULL) {
+        int c;
+        // Clear the input buffer
+        while ((c = getchar()) != '\n' && c != EOF);
+    }
+
+    // Remove the newline character from the input
+    size_t stringLength = strlen(choiceString);
+    if (stringLength > 0 && choiceString[stringLength - 1] == '\n') {
+        choiceString[stringLength - 1] = '\0';
+    }
+
+    // Convert the input to a number
+    char *endptr;
+    long choice = strtol(choiceString, &endptr, 10);
+
+    // Check if the input is a valid number
+    if (*endptr != '\0') {
+        printf("Invalid input. Please enter a valid number.\n");
+        free(choiceString);
+        continue;
+    }
+
     printf("You entered: %ld\n", choice);
+    free(choiceString);
 
     if (choice < 0 || choice > MenuOptionTypesLength) {
-      continue;
+        printf("Invalid option. Try again.\n");
+        continue;
     }
 
     switch (choice) {
