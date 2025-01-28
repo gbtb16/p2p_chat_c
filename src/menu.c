@@ -11,6 +11,7 @@
 
 #include "../include/l10n/localization.h"
 #include "../include/menu/menu.h"
+#include "../include/utils/utils.h"
 
 void _showMenuOptions(void) {
     for (int i = 0; i < MenuOptionTypesLength; i++) {
@@ -30,19 +31,17 @@ void _showMenuOptions(void) {
             break;
         }
 
-        if (sourceString == NULL) {
-            continue;
-        }
+        if (sourceString == NULL) standardError("Invalid menu option type!");
 
         size_t length = strlen(sourceString) + 1;
         char *optionLabel = malloc(length * sizeof(char));
-        if (optionLabel == NULL) {
-            printf("ERROR: Memory allocation failed!\n");
-            continue;
-        }
+        if (optionLabel == NULL) memoryAllocationFailed();
 
         strcpy(optionLabel, sourceString);
-        printf("%d - %s\n", i, optionLabel);
+        // Sum 1 to the index to show the option number starting from 1,
+        // because will be read by getline() and atoi() functions,
+        // which returns 0 if the input is not a number.
+        printf("%d - %s\n", (i + 1), optionLabel);
         free(optionLabel);
     }
 }
@@ -51,65 +50,36 @@ void showMenu(void) {
   printf("%s\n", currentLocalization->welcomeMessage);
 
   char separator[] = "--------------------------------------";
-  printf("%s\n", separator);
 
   while (1) {
+    printf("%s\n", separator);
     _showMenuOptions();
     printf("%s\n", separator);
 
-    int choiceStringSize = 10;
-    char *choiceString = malloc(choiceStringSize * sizeof(char));
-    if (choiceString == NULL) {
-        printf("ERROR: Memory allocation failed!\n");
-        continue;
-    }
+    char *buffer;
+    size_t bufferSize = 4;
+    buffer = (char *)malloc(bufferSize * sizeof(char));
+    if (buffer == NULL) memoryAllocationFailed();
 
     // Read user input
-    if (fgets(choiceString, choiceStringSize, stdin) == NULL) {
-        free(choiceString);
-        continue;
-    }
+    getline(&buffer, &bufferSize, stdin);
+    int choice = atoi(buffer);
 
-    // Check if the input is too long
-    if (strchr(choiceString, '\n') == NULL) {
-        int c;
-        // Clear the input buffer
-        while ((c = getchar()) != '\n' && c != EOF);
-    }
+    printf("You entered: %i\n", choice);
 
-    // Remove the newline character from the input
-    size_t stringLength = strlen(choiceString);
-    if (stringLength > 0 && choiceString[stringLength - 1] == '\n') {
-        choiceString[stringLength - 1] = '\0';
-    }
-
-    // Convert the input to a number
-    char *endptr;
-    long choice = strtol(choiceString, &endptr, 10);
-
-    // Check if the input is a valid number
-    if (*endptr != '\0') {
-        printf("Invalid input. Please enter a valid number.\n");
-        free(choiceString);
-        continue;
-    }
-
-    printf("You entered: %ld\n", choice);
-    free(choiceString);
-
-    if (choice < 0 || choice > MenuOptionTypesLength) {
-        printf("Invalid option. Try again.\n");
+    if (choice <= 0 || choice > MenuOptionTypesLength) {
+        standardError("Invalid option. Try again.\n");
         continue;
     }
 
     switch (choice) {
-        case 0:
+        case 1:
             printf("Language\n");
             break;
-        case 1:
+        case 2:
             printf("Start Chat\n");
             break;
-        case 2:
+        case 3:
             exit(0);
             break;
         default:
