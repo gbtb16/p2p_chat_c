@@ -11,10 +11,12 @@
 
 int main(int argc, char *argv[]) {
     #ifdef _WIN32
-            system("cls");
-        #else
-            system("clear");
-        #endif
+        system("cls");
+    #elif _WIN64
+        system("cls");
+    #else
+        system("clear");
+    #endif
 
     showMenu();
     return 0;

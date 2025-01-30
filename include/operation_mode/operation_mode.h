@@ -5,6 +5,7 @@
 //  Created by Gabriel Barbosa on 25/01/25.
 //
 
+#pragma once
 #ifndef _OPERATION_MODE_H
 #define _OPERATION_MODE_H
 

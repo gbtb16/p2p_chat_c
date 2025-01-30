@@ -9,40 +9,69 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "../include/l10n/localization.h"
 #include "../include/menu/menu.h"
-#include "../include/utils/utils.h"
 
-void _showMenuOptions(void) {
+void _defineMenuOptionsValues(MenuOption options[MenuOptionTypesLength]) {
+    const int mustTruncateLabel = TRUNCATE_IF_MENU_OPTION_LABEL_IS_TOO_LONG;
+    const int optionMaxLabelLength = MAX_MENU_OPTION_LABEL_LENGTH;
+
     for (int i = 0; i < MenuOptionTypesLength; i++) {
-        const char *sourceString = NULL;
+        MenuOption* pCrrentOption = &options[i];
+        MenuOptionType* pType = &pCrrentOption->type;
+        int* pChoiceNumber = &pCrrentOption->choiceNumber;
+        char* pLabel = pCrrentOption->label;
 
+        // Define the option parameters
+        *pType = i;
+        *pChoiceNumber = i + 1;
+
+        //Define the option label for the current localization
+        const char* pLocalizationLabel = "";
         switch (i) {
         case LanguageMenuOptionType:
-            sourceString = currentLocalization->languageMenuOptionLabel;
+            pLocalizationLabel = currentLocalization->languageMenuOptionLabel;
             break;
         case StartChatMenuOptionType:
-            sourceString = currentLocalization->startChatMenuOptionLabel;
+            pLocalizationLabel = currentLocalization->startChatMenuOptionLabel;
             break;
         case ExitMenuOptionType:
-            sourceString = currentLocalization->exitMenuOptionLabel;
+            pLocalizationLabel = currentLocalization->exitMenuOptionLabel;
             break;
         default:
             break;
         }
 
-        if (sourceString == NULL) standardError("Invalid menu option type!");
+        int localizationLabelLength = strlen(pLocalizationLabel);
+        if (pLocalizationLabel == NULL || localizationLabelLength <= 0) {
+            throwCriticalError("Localization label not found for the current option.");
+        }
 
-        size_t length = strlen(sourceString) + 1;
-        char *optionLabel = malloc(length * sizeof(char));
-        if (optionLabel == NULL) memoryAllocationFailed();
+        // Copy the localization label to the option
+        char effectiveLabel[optionMaxLabelLength];
 
-        strcpy(optionLabel, sourceString);
-        // Sum 1 to the index to show the option number starting from 1,
-        // because will be read by getline() and atoi() functions,
-        // which returns 0 if the input is not a number.
-        printf("%d - %s\n", (i + 1), optionLabel);
-        free(optionLabel);
+        if (localizationLabelLength < optionMaxLabelLength) {
+            strcpy(effectiveLabel, pLocalizationLabel);
+        } else {
+            char currentBuffer[optionMaxLabelLength];
+            for (int i = 0; i < optionMaxLabelLength; i++) currentBuffer[i] = pLocalizationLabel[i];
+
+            // If the label is too long, truncate it
+            putNullTerminatorString(currentBuffer);
+            if (mustTruncateLabel) truncateString(currentBuffer, optionMaxLabelLength);
+            strcpy(effectiveLabel, currentBuffer);
+        }
+
+        strncpy(pLabel, effectiveLabel, optionMaxLabelLength);
+    }
+}
+
+void _showMenuOptions(void) {
+    MenuOption menuOptions[MenuOptionTypesLength];
+    _defineMenuOptionsValues(menuOptions);
+
+    for (int i = 0; i < MenuOptionTypesLength; i++) {
+        MenuOption option = menuOptions[i];
+        printf("%i - %s\n", option.choiceNumber, option.label);
     }
 }
 
@@ -59,7 +88,7 @@ void showMenu(void) {
     char *buffer;
     size_t bufferSize = 4;
     buffer = (char *)malloc(bufferSize * sizeof(char));
-    if (buffer == NULL) memoryAllocationFailed();
+    if (buffer == NULL) throwMemoryAllocationFailed();
 
     // Read user input
     getline(&buffer, &bufferSize, stdin);
@@ -68,7 +97,7 @@ void showMenu(void) {
     printf("You entered: %i\n", choice);
 
     if (choice <= 0 || choice > MenuOptionTypesLength) {
-        standardError("Invalid option. Try again.\n");
+        throwStandardError("Invalid option. Try again.\n");
         continue;
     }
 

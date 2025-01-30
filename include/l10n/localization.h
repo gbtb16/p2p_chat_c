@@ -5,6 +5,7 @@
 //  Created by Gabriel Barbosa on 22/01/25.
 //
 
+#pragma once
 #ifndef _LOCALIZATION_H_
 #define _LOCALIZATION_H_
 
