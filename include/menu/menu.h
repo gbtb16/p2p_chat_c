@@ -15,6 +15,7 @@
 #define TRUNCATE_IF_MENU_OPTION_LABEL_IS_TOO_LONG 1
 #define MAX_MENU_OPTION_LABEL_LENGTH 32
 
+// Enum for the different types of menu options.
 typedef enum {
     LanguageMenuOptionType,
     StartChatMenuOptionType,
@@ -22,8 +23,10 @@ typedef enum {
     MenuOptionTypesLength
 } MenuOptionType;
 
-//const int menuOptionsLength = MenuOptionTypesLength;
-
+// Struct for a menu option.
+// type: The type of the menu option.
+// choiceNumber: The number of the choice in the menu.
+// label: The label of the menu option.
 typedef struct MenuOption {
     MenuOptionType type;
     int choiceNumber;

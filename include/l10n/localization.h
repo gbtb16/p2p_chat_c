@@ -19,7 +19,7 @@ typedef enum {
     LanguageTypesLength
 } LanguageType;
 
-// Localization structure.
+// Localization structure with all the messages available in the application.
 typedef struct {
     const char* languageSetMessage;
     const char* welcomeMessage;

@@ -6,8 +6,8 @@
 //
 
 #pragma once
-#ifndef _OPERATION_MODE_H
-#define _OPERATION_MODE_H
+#ifndef _OPERATION_MODE_H_
+#define _OPERATION_MODE_H_
 
 // Enum for operation modes.
 typedef enum {
@@ -20,4 +20,4 @@ typedef enum {
 // Returns the user's choice.
 int showOperationModeSetup(void);
 
-#endif // _OPERATION_MODE_H
+#endif // _OPERATION_MODE_H_
