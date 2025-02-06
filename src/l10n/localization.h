@@ -66,9 +66,9 @@ static const Localization localizations[LanguageTypesLength] = {
     }
 };
 
-// Current localization pointer.
-// Your value represents the current language.
-// Default will be English.
+// Current localization pointer, which will be used to represent the current language.
+//
+// Default is English.
 const Localization *currentLocalization = &localizations[EnglishLanguageType];
 
 // Function to show the language setup, where the user can choose the actual language.

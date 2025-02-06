@@ -21,6 +21,7 @@ typedef enum {
 } OperationModeType;
 
 // Ask the user to choose the operation mode.
+//
 // Returns the user's choice.
 int showOperationModeSetup(void);
 
