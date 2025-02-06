@@ -1,4 +1,7 @@
-/build
+# Build directories
+builds/
+
+# System files
 .DS_Store
 
 # Prerequisites

@@ -1,13 +1,13 @@
 //
-//  localization_pt.h
+//  translations_pt.h
 //  p2p_chat_c
 //
 //  Created by Gabriel Barbosa on 22/01/25.
 //
 
 #pragma once
-#ifndef _LOCALIZATION_PT_H_
-#define _LOCALIZATION_PT_H_
+#ifndef _TRANSLATIONS_PT_H_
+#define _TRANSLATIONS_PT_H_
 
 #define LANG_PT_WELCOME_MSG "Bem-vindo ao P2P Chat feito em C!"
 #define LANG_PT_LANGUAGE_MENU_OPTION_LABEL "Selecionar o idioma"
@@ -21,4 +21,4 @@
 #define LANG_PT_TYPE_PEER_PORT_MSG "Digite a porta:"
 #define LANG_PT_GOODBYE_MSG "Adeus"
 
-#endif // _LOCALIZATION_PT_H_
+#endif // _TRANSLATIONS_PT_H_

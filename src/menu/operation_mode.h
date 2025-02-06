@@ -9,6 +9,10 @@
 #ifndef _OPERATION_MODE_H_
 #define _OPERATION_MODE_H_
 
+#include <stdio.h>
+
+#include "../l10n/localization.c"
+
 // Enum for operation modes.
 typedef enum {
     ServerOperationModeType,

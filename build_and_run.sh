@@ -7,4 +7,4 @@
 
 make clean
 make
-./build/p2p_chat_c
+./builds/bin/p2p_chat_c

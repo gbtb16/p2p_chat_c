@@ -5,11 +5,12 @@
 //  Created by Gabriel Barbosa on 22/01/25.
 //
 
-#include <stdlib.h>
-
-#include "../include/menu/menu.h"
+#include "menu/menu.c"
 
 int main(int argc, char *argv[]) {
+    (void)argc;
+    (void)argv;
+
     #ifdef _WIN32
         system("cls");
     #elif _WIN64

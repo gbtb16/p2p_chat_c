@@ -5,22 +5,23 @@
 #  Created by Gabriel Barbosa on 22/01/25.
 #
 
-CC = gcc
-CFLAGS = -Wall -Iinclude
-SRCDIR = src
-OBJDIR = build
+CC := clang
+CFLAGS := -Wall -Wextra -Wpedantic -Wconversion -O2 -g
+LDFLAGS :=
 
-OBJS = $(OBJDIR)/main.o $(OBJDIR)/localization.o $(OBJDIR)/operation_mode.o $(OBJDIR)/menu.o $(OBJDIR)/utils.o
-TARGET = $(OBJDIR)/p2p_chat_c
+SRC := src/main.c
+BUILD_DIR := builds/bin
+TARGET := $(BUILD_DIR)/p2p_chat_c
+
+# Cria o diretório de builds caso não exista
+$(shell mkdir -p $(BUILD_DIR))
+
+.PHONY: all clean
 
 all: $(TARGET)
 
-$(TARGET): $(OBJS)
-	$(CC) -o $@ $^
-
-$(OBJDIR)/%.o: $(SRCDIR)/%.c
-	mkdir -p $(OBJDIR)
-	$(CC) $(CFLAGS) -c $< -o $@
+$(TARGET): $(SRC)
+	$(CC) $(CFLAGS) $(SRC) -o $(TARGET) $(LDFLAGS)
 
 clean:
-	rm -rf $(OBJDIR)
+	rm -rf $(TARGET)

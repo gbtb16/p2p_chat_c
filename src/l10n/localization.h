@@ -9,8 +9,10 @@
 #ifndef _LOCALIZATION_H_
 #define _LOCALIZATION_H_
 
-#include "localization_en.h"
-#include "localization_pt.h"
+#include <stdio.h>
+
+#include "translations/translations_pt.h"
+#include "translations/translations_en.h"
 
 // Enum for languages.
 typedef enum {
@@ -67,11 +69,11 @@ static const Localization localizations[LanguageTypesLength] = {
 // Current localization pointer.
 // Your value represents the current language.
 // Default will be English.
-extern const Localization *currentLocalization;
+const Localization *currentLocalization = &localizations[EnglishLanguageType];
 
 // Function to show the language setup, where the user can choose the actual language.
 // Returns the choice number in range of [0-LanguageTypesLength].
-int showLanguageSetup();
+int showLanguageSetup(void);
 
 // Function to select the language of the application.
 void setLanguage(LanguageType type);

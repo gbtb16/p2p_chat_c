@@ -1,27 +1,15 @@
 //
-//  utils.h
+//  string_utils.h
 //  p2p_chat_c
 //
-//  Created by Gabriel Barbosa on 28/01/25.
+//  Created by Gabriel Barbosa on 06/02/25.
 //
 
 #pragma once
-#ifndef _UTILS_H_
-#define _UTILS_H_
+#ifndef _STRING_UTILS_H_
+#define _STRING_UTILS_H_
 
-// Print a message in stdout.
-// The program will continue running.
-void throwStandardError(const char *message);
-
-// Print a critical error message and exit the program.
-// The message will be printed in stderr.
-// The program will exit with status -1.
-void throwCriticalError(const char *message);
-
-// Print a message in stderr and exit the program.
-// The message will be printed in stderr.
-// The program will exit with status -1.
-void throwMemoryAllocationFailed(void);
+#include <string.h>
 
 // Check if a string has a null terminator, and if it doesn't, insert one.
 // If the string is NULL, the function will return immediately.
@@ -34,4 +22,4 @@ void putNullTerminatorString(char *pString);
 // If the string is shorter than the maximum length, it will not be modified.
 void truncateString(char *pLabel, int maxLength);
 
-#endif // _UTILS_H_
+#endif // _STRING_UTILS_H_

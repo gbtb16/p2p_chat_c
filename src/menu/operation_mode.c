@@ -5,10 +5,7 @@
 //  Created by Gabriel Barbosa on 25/01/25.
 //
 
-#include <stdio.h>
-
-#include "../include/l10n/localization.h"
-#include "../include/operation_mode/operation_mode.h"
+#include "operation_mode.h"
 
 int showOperationModeSetup(void) {
     int choice = 0;

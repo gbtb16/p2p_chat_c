@@ -9,8 +9,12 @@
 #ifndef _MENU_H_
 #define _MENU_H_
 
-#include "../l10n/localization.h"
-#include "../utils/utils.h"
+#include <string.h>
+#include <stdlib.h>
+
+#include "../l10n/localization.c"
+#include "../utils/errors.c"
+#include "../utils/string_utils.c"
 
 #define TRUNCATE_IF_MENU_OPTION_LABEL_IS_TOO_LONG 1
 #define MAX_MENU_OPTION_LABEL_LENGTH 32
@@ -35,5 +39,15 @@ typedef struct MenuOption {
 
 // Show the entire menu.
 void showMenu(void);
+
+// Show the menu options.
+//
+// Must be used only in [showMenu] function.
+static void showMenuOptions(void);
+
+// Define the values for the menu options.
+//
+// Must be used only in [showMenuOptions] function.
+static void defineMenuOptionsValues(MenuOption options[MenuOptionTypesLength]);
 
 #endif // _MENU_H_

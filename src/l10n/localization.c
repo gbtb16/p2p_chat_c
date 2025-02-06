@@ -5,11 +5,7 @@
 //  Created by Gabriel Barbosa on 22/01/25.
 //
 
-#include <stdio.h>
-
-#include "../include/l10n/localization.h"
-
-const Localization *currentLocalization = &localizations[EnglishLanguageType];
+#include "localization.h"
 
 int showLanguageSetup(void) {
     int choice = 0;
